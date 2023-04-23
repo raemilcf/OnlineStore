@@ -1,6 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
+
+import Navigation from './routes/navigation/navigation.component';
 import Home from './routes/home/home.component';
+
 import './App.css';
+
+
 
 
 const Shop = () => {
@@ -18,10 +23,11 @@ const Shop = () => {
 const App  = ()=> {
   return(
     <Routes>
-      <Route path='/home' element={ <Home />} >
+      <Route path='/' element= {<Navigation />}>
+        <Route index element={ <Home />} />
         <Route path='shop' element={ <Shop />} />
-
       </Route>
+      
 
     </Routes>
   );
