@@ -2,8 +2,21 @@
 import { initializeApp } from "firebase/app";
 
 //authentication -first create in firebase console - authentication - signin methods - add google and user to test login
-//separete authtication from firebase database - user auth y user db are different 
-import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect } from "firebase/auth";
+//separete authtication from firestore database - user auth y user db are different 
+import { 
+    getAuth, 
+    GoogleAuthProvider, 
+    signInWithPopup, 
+    signInWithRedirect 
+} from "firebase/auth";
+
+//firestore
+import {
+    getFirestore,
+    doc, //get instance 
+    getDoc, //get documents 
+    setDoc // set documents 
+} from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -34,3 +47,42 @@ provider.setCustomParameters ({
 //same auth for the hole app, dont need more than one auth 
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+
+
+//firestore instance 
+export const db = getFirestore();
+
+//validate if user exist and if not create in DB or return existing user
+export const createUserDocumentFromAuth = async (userAuth) => {
+    //see if there is a document reference (actual instance)
+    const userDocRef = doc(db, 'users', userAuth.uid);
+
+    //get collection of DB
+    const userSnapshot = await getDoc(userDocRef);
+
+    //validate if user exist in database
+    //if user data no exist 
+    if(!userSnapshot.exists()){
+
+        const {displayName, email} = userAuth;
+        const createdAt = new Date();
+
+        //then create user in collection
+        try{
+            await setDoc(userDocRef, {
+                displayName,
+                email,
+                createdAt
+            });
+        }
+        catch (error) {
+            console.log("Error creating user", error.message);
+
+        }
+    }
+
+    //if user data exist 
+    //return user doc ref
+    return userDocRef;
+
+}
