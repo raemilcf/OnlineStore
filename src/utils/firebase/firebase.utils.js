@@ -7,7 +7,8 @@ import {
     getAuth, 
     GoogleAuthProvider, 
     signInWithPopup, 
-    signInWithRedirect 
+    signInWithRedirect ,
+    createUserWithEmailAndPassword
 } from "firebase/auth";
 
 //firestore
@@ -53,7 +54,10 @@ export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googlePro
 export const db = getFirestore();
 
 //validate if user exist and if not create in DB or return existing user
-export const createUserDocumentFromAuth = async (userAuth) => {
+export const createUserDocumentFromAuth = async (userAuth, additionalInformation) => {
+
+    if(!userAuth) return;
+
     //see if there is a document reference (actual instance)
     const userDocRef = doc(db, 'users', userAuth.uid);
 
@@ -72,7 +76,8 @@ export const createUserDocumentFromAuth = async (userAuth) => {
             await setDoc(userDocRef, {
                 displayName,
                 email,
-                createdAt
+                createdAt,
+                ...additionalInformation //will add or replace some values like display name if exist in additonalinformation
             });
         }
         catch (error) {
@@ -85,4 +90,16 @@ export const createUserDocumentFromAuth = async (userAuth) => {
     //return user doc ref
     return userDocRef;
 
+}
+
+
+//create user with email and password comes native from firebase auth
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+
+    if(!email || !password) return;
+
+    //protect front-end from future changes, only need to change here, not in sign up form
+    const user = await createUserWithEmailAndPassword(auth, email, password);
+
+    return user;
 }
