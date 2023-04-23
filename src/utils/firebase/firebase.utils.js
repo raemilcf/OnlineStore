@@ -36,17 +36,17 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 
 //google auth 
-const provider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
 
-provider.setCustomParameters ({
-
-
+googleProvider.setCustomParameters ({
     prompt : "select_account"
 });
 
 //same auth for the hole app, dont need more than one auth 
-export const auth = getAuth();
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+//can generate multiple provider facebook, slack, linkedin etc
+export const auth = getAuth(); //keep tracks of the authentication
+export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
+export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
 
 
 //firestore instance 
