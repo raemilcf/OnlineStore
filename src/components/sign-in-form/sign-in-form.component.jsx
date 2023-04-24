@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useContext} from 'react';
 
 import {
     createAuthUserWithEmailAndPassword, 
@@ -11,6 +11,7 @@ import {
 } from '../../utils/firebase/firebase.utils';
 
 import {getRedirectResult} from 'firebase/auth';
+import { UserContext } from '../../context/user.context';
 
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
@@ -29,6 +30,8 @@ const SignInForm = () => {
 
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
+
+    const { setCurrentUser } = useContext(UserContext);
 
     //generized changes 
     const handleChange = (event) => {
@@ -58,7 +61,8 @@ const SignInForm = () => {
 
         try{
 
-            const response = await signInAuthUserWithEmailAndPassword(email, password);
+            const {user} = await signInAuthUserWithEmailAndPassword(email, password);
+            setCurrentUser(user);
 
             //reset form field 
             resetFields();

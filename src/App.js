@@ -7,7 +7,8 @@ import Authentication from './routes/authentication/authentication.component';
 
 import './App.css';
 
-
+//props driling - send user data to all components 
+//react context - save data to avoid passing data to all components and parents and child components 
 
 
 const Shop = () => {

@@ -1,13 +1,17 @@
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
 import { Outlet, Link } from "react-router-dom";
 
 
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
+import { UserContext } from "../../context/user.context";
 
 import "./navigation.styles.scss"
 
 //fragment render to nothing, dont want to render some element - avoid adding another div 
 const Navigation = () => {
+    //re-render to show user changes on login
+    const { currentUser } = useContext(UserContext);
+    console.log(currentUser);
 
     return (
       <Fragment>

@@ -1,15 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.scss';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom'; //add react-router-dom to handle navigation 
+
+
+import App from './App';
+
+import { UserProvider } from './context/user.context';
+
+
+import './index.scss';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
   <BrowserRouter>
-    <App />
+  {/* which user has access to our components  */}
+    <UserProvider> 
+      <App />
+    </UserProvider> 
   </BrowserRouter>
   </React.StrictMode>
 );
