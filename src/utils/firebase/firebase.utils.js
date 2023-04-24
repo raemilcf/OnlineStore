@@ -8,7 +8,8 @@ import {
     GoogleAuthProvider, 
     signInWithPopup, 
     signInWithRedirect ,
-    createUserWithEmailAndPassword
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword
 } from "firebase/auth";
 
 //firestore
@@ -102,4 +103,14 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
     const user = await createUserWithEmailAndPassword(auth, email, password);
 
     return user;
+}
+
+//login user
+export const signInAuthUserWithEmailAndPassword = async (email, password) => {
+
+    if(!email || !password) return;
+
+    //protect front-end from future changes, only need to change here, not in sign up form
+    return await signInWithEmailAndPassword(auth, email, password);
+
 }
