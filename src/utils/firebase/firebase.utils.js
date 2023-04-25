@@ -9,7 +9,8 @@ import {
     signInWithPopup, 
     signInWithRedirect ,
     createUserWithEmailAndPassword,
-    signInWithEmailAndPassword
+    signInWithEmailAndPassword,
+    signOut
 } from "firebase/auth";
 
 //firestore
@@ -114,3 +115,7 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
     return await signInWithEmailAndPassword(auth, email, password);
 
 }
+
+
+//sign out the user
+export const singOutUser = async () => await signOut(auth);

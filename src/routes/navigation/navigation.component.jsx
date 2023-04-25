@@ -4,14 +4,20 @@ import { Outlet, Link } from "react-router-dom";
 
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
 import { UserContext } from "../../context/user.context";
+import { singOutUser } from '../../utils/firebase/firebase.utils'
 
 import "./navigation.styles.scss"
 
 //fragment render to nothing, dont want to render some element - avoid adding another div 
 const Navigation = () => {
     //re-render to show user changes on login
-    const { currentUser } = useContext(UserContext);
-    console.log(currentUser);
+    const { currentUser, setCurrentUser } = useContext(UserContext);
+
+    //reset user and sign out from firestore and auth 
+    const signOutUserHandler = async () => {
+        await singOutUser();
+        setCurrentUser(null);
+    }
 
     return (
       <Fragment>
@@ -27,9 +33,13 @@ const Navigation = () => {
                 <Link className="nav-link" to='/shop'> 
                     CONTACT
                 </Link>
-                <Link className="nav-link" to='/auth'> 
-                    SIGN IN
-                </Link>
+                {currentUser ? (
+                    <span className="nav-link" onClick={signOutUserHandler}> Sign Out</span>
+                ) : (
+                    <Link className="nav-link" to='/auth'> 
+                        SIGN IN
+                    </Link>
+                )}
             </div>
         </div>
         <Outlet />

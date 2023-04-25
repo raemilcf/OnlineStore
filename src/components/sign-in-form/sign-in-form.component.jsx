@@ -1,16 +1,12 @@
 import {useState, useContext} from 'react';
 
 import {
-    createAuthUserWithEmailAndPassword, 
     createUserDocumentFromAuth, 
-    auth, 
     signInWithGooglePopup, 
-    signInWithGoogleRedirect,
     signInAuthUserWithEmailAndPassword
 
 } from '../../utils/firebase/firebase.utils';
 
-import {getRedirectResult} from 'firebase/auth';
 import { UserContext } from '../../context/user.context';
 
 import FormInput from '../form-input/form-input.component';
@@ -32,6 +28,9 @@ const SignInForm = () => {
     const { email, password } = formFields;
 
     const { setCurrentUser } = useContext(UserContext);
+
+    console.log("hit sign in");
+
 
     //generized changes 
     const handleChange = (event) => {
@@ -56,9 +55,6 @@ const SignInForm = () => {
     //create user in authentication firebase and in firestore db
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-     
-
         try{
 
             const {user} = await signInAuthUserWithEmailAndPassword(email, password);
