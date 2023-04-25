@@ -1,17 +1,22 @@
 import { Fragment, useContext } from "react";
 import { Outlet, Link } from "react-router-dom";
 
+import CartIcon from "../../components/cart-icon/cart-icon.component";
+import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
 
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
 import { UserContext } from "../../context/user.context";
 import { singOutUser } from '../../utils/firebase/firebase.utils'
 
+
 import "./navigation.styles.scss"
+import { CartContext } from "../../context/cart.context";
 
 //fragment render to nothing, dont want to render some element - avoid adding another div 
 const Navigation = () => {
     //re-render to show user changes on login
     const { currentUser } = useContext(UserContext);
+    const { isCartOpen } = useContext(CartContext);
 
  
     return (
@@ -35,7 +40,10 @@ const Navigation = () => {
                         SIGN IN
                     </Link>
                 )}
+                <CartIcon />
             </div>
+            {/* show or hide dropdown cart  */}
+            { isCartOpen && ( <CartDropdown /> )}
         </div>
         <Outlet />
       </Fragment>
