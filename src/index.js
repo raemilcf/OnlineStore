@@ -7,18 +7,21 @@ import { BrowserRouter } from 'react-router-dom'; //add react-router-dom to hand
 import App from './App';
 
 import { UserProvider } from './context/user.context';
+import { ProductsProvider } from './context/products.context';
 
 
 import './index.scss';
 
-
+//before inserting the provider we need to identify if is needed after login or before any other provider
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
   <BrowserRouter>
   {/* which user has access to our components  */}
     <UserProvider> 
-      <App />
+      <ProductsProvider>  
+        <App />
+      </ProductsProvider>
     </UserProvider> 
   </BrowserRouter>
   </React.StrictMode>
