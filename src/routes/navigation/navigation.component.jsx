@@ -11,14 +11,9 @@ import "./navigation.styles.scss"
 //fragment render to nothing, dont want to render some element - avoid adding another div 
 const Navigation = () => {
     //re-render to show user changes on login
-    const { currentUser, setCurrentUser } = useContext(UserContext);
+    const { currentUser } = useContext(UserContext);
 
-    //reset user and sign out from firestore and auth 
-    const signOutUserHandler = async () => {
-        await singOutUser();
-        setCurrentUser(null);
-    }
-
+ 
     return (
       <Fragment>
         <div className="navigation">
@@ -34,7 +29,7 @@ const Navigation = () => {
                     CONTACT
                 </Link>
                 {currentUser ? (
-                    <span className="nav-link" onClick={signOutUserHandler}> Sign Out</span>
+                    <span className="nav-link" onClick={singOutUser}> Sign Out</span>
                 ) : (
                     <Link className="nav-link" to='/auth'> 
                         SIGN IN

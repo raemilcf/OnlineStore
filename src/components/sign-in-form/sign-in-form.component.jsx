@@ -1,13 +1,10 @@
-import {useState, useContext} from 'react';
+import {useState} from 'react';
 
 import {
-    createUserDocumentFromAuth, 
     signInWithGooglePopup, 
     signInAuthUserWithEmailAndPassword
 
 } from '../../utils/firebase/firebase.utils';
-
-import { UserContext } from '../../context/user.context';
 
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
@@ -20,22 +17,14 @@ const defaultFormFields = {
     password: ''
 }
 
-
-
 const SignInForm = () => {
 
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
 
-    const { setCurrentUser } = useContext(UserContext);
-
-    console.log("hit sign in");
-
-
     //generized changes 
     const handleChange = (event) => {
         const {name , value} = event.target;
-
         //annotation to save values of the form 
         setFormFields({...formFields, [name] : value});
     };
@@ -45,11 +34,8 @@ const SignInForm = () => {
         setFormFields(defaultFormFields);
     }
 
-
     const signInWithGoogle = async () => {
-        const {user} = await signInWithGooglePopup();
-        const userDocRef = await createUserDocumentFromAuth(user);
-        console.log(userDocRef);
+        signInWithGooglePopup();
     }
 
     //create user in authentication firebase and in firestore db
@@ -57,19 +43,13 @@ const SignInForm = () => {
         event.preventDefault();
         try{
 
-            const {user} = await signInAuthUserWithEmailAndPassword(email, password);
-            setCurrentUser(user);
-
+            await signInAuthUserWithEmailAndPassword(email, password);
             //reset form field 
             resetFields();
-
-
         }catch(error){
             if(error.code === 'auth/wrong-password' || error.code === "auth/user-not-found"){
                 alert("Email or password invalid!");
-
             }
-            
         }
     };
 

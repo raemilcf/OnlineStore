@@ -1,4 +1,4 @@
-import {useContext, useState} from 'react';
+import { useState} from 'react';
 
 import {createAuthUserWithEmailAndPassword, createUserDocumentFromAuth} from '../../utils/firebase/firebase.utils';
 
@@ -6,8 +6,6 @@ import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
 
 import './sign-up-form.styles.scss'
-import { UserContext } from '../../context/user.context';
-
 
 //create default object with values to handle in the form 
 const defaultFormFields = {
@@ -17,23 +15,17 @@ const defaultFormFields = {
     confirmPassword: ''
 }
 
-
-
 const SignUpForm = () => {
-
-    console.log("hit sign up");
 
     const [formFields, setFormFields] = useState(defaultFormFields);
     const {displayName, email, password, confirmPassword} = formFields;
 
     //multiple component listeneing to a context, even if you dont doing anything with that hook, it will re-render your page 
     //all the code is call during the re render process of the context change
-    const { setCurrentUser } = useContext(UserContext);
 
     //generized changes 
     const handleChange = (event) => {
         const {name , value} = event.target;
-
         //annotation to save values of the form 
         setFormFields({...formFields, [name] : value});
     };
@@ -43,7 +35,6 @@ const SignUpForm = () => {
         setFormFields(defaultFormFields);
     }
 
-
     //create user in authentication firebase and in firestore db
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -51,20 +42,13 @@ const SignUpForm = () => {
         if(password !== confirmPassword){
             alert('Pasword dont match');
             return;
-
         }
 
         try{
-
             //create user in authentication- users
             const {user} = await createAuthUserWithEmailAndPassword(email, password);
-
-            //update values of the user in the context, this will re-render all parts that are using this context
-            setCurrentUser(user);
-
             //create user in firestore
             await createUserDocumentFromAuth(user, {displayName});
-
             //reset form field 
             resetFields();
 

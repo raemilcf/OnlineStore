@@ -10,7 +10,8 @@ import {
     signInWithRedirect ,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    signOut
+    signOut,
+    onAuthStateChanged
 } from "firebase/auth";
 
 //firestore
@@ -116,6 +117,10 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 
 }
 
-
 //sign out the user
 export const singOutUser = async () => await signOut(auth);
+
+//observable -allow to keep track of the user state at any moment 
+export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
+//always listening, stop listening when component that is using unmount
+//observer pattern
