@@ -1,4 +1,4 @@
-import {createContext,  useState} from 'react';
+import {createContext,  useEffect,  useState} from 'react';
 
 //create new array with products 
 const addCartItem = (cartItems, productToAdd) => {
@@ -23,20 +23,31 @@ export const CartContext = createContext({
     isCartOpen : false,
     setIsCartOpen : () => {},
     cartItems:[],
-    addItemToCart: () => {}
+    addItemToCart: () => {},
+    cartCount : 0
 });
 //context to keep track of the dropdown cart 
 export const CartProvider = ({children}) => {
 
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [cartItems, setCartItems] = useState([]);
+    const [cartCount, setCartCount] = useState(0);
+
+    useEffect(() => {
+        const newCartCount = cartItems.reduce(
+            (accumulator, currentValue) => accumulator + currentValue.quantity,
+            0
+        );
+
+        setCartCount(newCartCount);
+    },[cartItems]);
 
     const addItemToCart = (productToAdd) => {
         setCartItems(addCartItem(cartItems, productToAdd));
 
     }
 
-    const value ={isCartOpen, setIsCartOpen, addItemToCart, cartItems };
+    const value ={isCartOpen, setIsCartOpen, addItemToCart, cartItems, cartCount };
 
     return (<CartContext.Provider value={value}>{children}</CartContext.Provider> )
 
