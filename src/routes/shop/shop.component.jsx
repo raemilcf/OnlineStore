@@ -11,7 +11,6 @@ const Shop = () => {
     //must call same variable names from productsContext
     const { products } = useContext(ProductsContext);
 
-    console.log(products);
     return (
         <div className="products-container">
             {products.map((product) => (
