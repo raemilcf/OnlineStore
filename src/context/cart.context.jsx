@@ -40,6 +40,7 @@ const removerCartItem = ( cartItems, cartItemToRemove) => {
 );
 }
 
+//clear the full cart 
 const clearCartItems = (cartItems, clearCartItem) => {
     return cartItems.filter(cartItem => cartItem.id !== clearCartItem.id);
 
@@ -65,6 +66,7 @@ export const CartProvider = ({children}) => {
     const [cartTotal, setCartTotal] = useState(0);
 
 
+    //update state of cart items and quantity
     useEffect(() => {
         const newCartCount = cartItems.reduce(
             (accumulator, currentValue) => accumulator + currentValue.quantity,
@@ -74,35 +76,44 @@ export const CartProvider = ({children}) => {
         setCartCount(newCartCount);
     },[cartItems]);
 
+    //update checkout total
     useEffect(() => {
-        const newCartCount = cartItems.reduce(
+        const newCartTotal = cartItems.reduce(
             (accumulator, currentValue) => accumulator + (currentValue.quantity * currentValue.price),
             0
         );
 
-        setCartTotal(newCartCount);
+        setCartTotal(newCartTotal);
     },[cartItems]);
 
+    //add item to cart or add  quantity to item
     const addItemToCart = (productToAdd) => {
         setCartItems(addCartItem(cartItems, productToAdd));
 
     }
-
 
     //quit one pice of same product 
     const removeItemToCart = (cartItemToRemove) => {
         setCartItems(removerCartItem(cartItems, cartItemToRemove));
 
     }
-
+    
+    //clear the item  cart from checkout
     const clearItemFromCart = (clearCartItem) => {
         setCartItems(clearCartItems(cartItems, clearCartItem));
 
     }
 
-
-
-    const value ={isCartOpen, setIsCartOpen, addItemToCart, cartItems, cartCount, removeItemToCart, clearItemFromCart, cartTotal };
+    const value ={
+        isCartOpen,
+        setIsCartOpen, 
+        addItemToCart, 
+        cartItems, 
+        cartCount, 
+        removeItemToCart, 
+        clearItemFromCart, 
+        cartTotal 
+    };
 
     return (<CartContext.Provider value={value}>{children}</CartContext.Provider> )
 
