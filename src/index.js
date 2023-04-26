@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter , HashRouter as Router} from 'react-router-dom'; //add react-router-dom to handle navigation 
+import { HashRouter} from 'react-router-dom'; //add react-router-dom to handle navigation 
 
 
 import App from './App';
@@ -17,8 +17,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
  
     <React.StrictMode>
-     <Router>
-      <BrowserRouter>
+      <HashRouter>
       {/* which user has access to our components  */}
       <UserProvider> 
         <ProductsProvider>  
@@ -28,8 +27,7 @@ root.render(
           </CartProvider>
         </ProductsProvider>
         </UserProvider> 
-      </BrowserRouter>
-      </Router>
+      </HashRouter>
     </React.StrictMode>
  
 );
