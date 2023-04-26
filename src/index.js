@@ -15,8 +15,9 @@ import './index.scss';
 //before inserting the provider we need to identify if is needed after login or before any other provider
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Router>
+ 
     <React.StrictMode>
+     <Router>
       <BrowserRouter>
       {/* which user has access to our components  */}
       <UserProvider> 
@@ -28,8 +29,8 @@ root.render(
         </ProductsProvider>
         </UserProvider> 
       </BrowserRouter>
+      </Router>
     </React.StrictMode>
-  </Router>
  
 );
 
