@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom'; //add react-router-dom to handle navigation 
+import { HashRouter} from 'react-router-dom'; //add react-router-dom to handle navigation 
 
 
 import App from './App';
@@ -15,8 +15,9 @@ import './index.scss';
 //before inserting the provider we need to identify if is needed after login or before any other provider
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+
   <React.StrictMode>
-  <BrowserRouter>
+  <HashRouter>
   {/* which user has access to our components  */}
   <UserProvider> 
     <CategoriesProvider>  
@@ -26,7 +27,7 @@ root.render(
       </CartProvider>
     </CategoriesProvider>
     </UserProvider> 
-  </BrowserRouter>
+  </HashRouter>
   </React.StrictMode>
 );
 
