@@ -26,11 +26,16 @@ const Category = () => {
 
     //show only the all products that belong to one route or category
     return (
-        <div className='category-container'>
+        <>
+            <h2 className='category-title'>{category.toUpperCase()}</h2>
+            <div className='category-container'>
             {products &&
                 products.map((product) => <ProductCard key={product.id} product={product} />)
             }
-        </div>
+            </div>
+
+        </>
+       
     )
 
 }
