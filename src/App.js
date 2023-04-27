@@ -18,7 +18,9 @@ const App  = ()=> {
     <Routes>
       <Route path='/' element= {<Navigation />}>
         <Route index element={ <Home />} />
-        <Route path='shop' element={ <Shop />} />
+        {/* nested routes with dynamics routes  in shop pages, 
+        declarating <shop />  with path like shop/*  we are indicating inside <shop/> will be more routes declared*/}
+        <Route path='shop/*' element={ <Shop />} />
         <Route path='auth' element={ <Authentication />} />
         <Route path='checkout' element={ <Checkout />} />
 
