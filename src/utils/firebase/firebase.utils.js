@@ -19,7 +19,9 @@ import {
     getFirestore,
     doc, //get instance 
     getDoc, //get documents 
-    setDoc // set documents 
+    setDoc, // set documents 
+    collection,
+    writeBatch
 } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -55,6 +57,26 @@ export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googlePro
 
 //firestore instance 
 export const db = getFirestore();
+
+//add collection and documents to firestore
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+
+    //get the collection (table ) to work with 
+    const collectionRef = collection(db, collectionKey);
+    //initialize batch trans
+    const batch = writeBatch(db);
+
+
+    //unit of work - commit all transactions in one batch 
+    objectsToAdd.forEach((object) => {
+        const docRef = doc(collectionRef, object.title.toLowerCase());
+        batch.set(docRef, object);
+    });
+
+    await batch.commit();
+    console.log("done commit ");
+
+}
 
 //validate if user exist and if not create in DB or return existing user
 export const createUserDocumentFromAuth = async (userAuth, additionalInformation) => {
