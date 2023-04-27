@@ -9,6 +9,7 @@ const Shop = () => {
     return(
         <Routes>
             <Route index element={<CategoriesPreview />}></Route>
+            {/* declaring the dynamic route */}
             <Route path=":category" element={ <Category />} ></Route>
         </Routes>
     )

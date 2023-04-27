@@ -24,7 +24,7 @@ const Category = () => {
     }, [category, categoriesMap]);
 
 
-
+    //show only the all products that belong to one route or category
     return (
         <div className='category-container'>
             {products &&
