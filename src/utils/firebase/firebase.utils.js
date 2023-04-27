@@ -21,7 +21,9 @@ import {
     getDoc, //get documents 
     setDoc, // set documents 
     collection,
-    writeBatch
+    writeBatch,
+    query,
+    getDocs
 } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -76,6 +78,29 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => 
     await batch.commit();
     console.log("done commit ");
 
+}
+
+//get categories map - list of categories 
+export const getCategoriesAndDocuments = async () => {
+    const collectionRef = collection(db, 'categories');
+
+    //generate a query from the collection 
+    const queryRequest = query(collectionRef);
+
+    //get docs get snapshot of all the collection 
+    const querySnapshot = await getDocs(queryRequest);
+
+    //convert to object that follows the structure of Shop-data.js
+    const categoryMap = querySnapshot.docs.reduce( (accumulator, docSnapshot) => {
+        const { title, items } = docSnapshot.data();
+
+        //insert all list of items per category
+        accumulator[title.toLowerCase()]=items;
+        return accumulator;
+
+    }, {});
+
+    return categoryMap;
 }
 
 //validate if user exist and if not create in DB or return existing user
