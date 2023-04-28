@@ -8,13 +8,13 @@ const CategoriesPreview = () => {
 
     //must call same variable names from productsContext
     const { categoriesMap } = useContext(CategoriesContext);
-
+   
+    // only shows the first 4 elements of a category
     return (//declare a fragment <> </>
         <> 
             {
                 Object.keys(categoriesMap).map((title) => {
                     const products = categoriesMap[title];
-                    {/* only shows the first 4 elements of a category */}
                     return (
                         
                         <CategoryPreview key={title} title={title} products = {products} />
