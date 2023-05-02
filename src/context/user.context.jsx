@@ -1,6 +1,8 @@
 import { createContext,  useEffect, useReducer  } from  'react';
 import { createUserDocumentFromAuth, onAuthStateChangedListener } from '../utils/firebase/firebase.utils';
 
+import { createAction } from '../utils/reducer/reducer.util';
+
 //actual value you want to access 
 export const UserContext = createContext({
     //base empty state
@@ -41,7 +43,7 @@ export const UserProvider = ({ children }) => {
     //update current user 
     const setCurrentUser = (user) => {
         //every time dispatched runs if object changes it re-renders the funcitonal component and update all the pages that are listening 
-        dispatch({type: USER_ACTION_TYPES.SET_CURRENT_USER, payload: user})
+        dispatch(createAction( USER_ACTION_TYPES.SET_CURRENT_USER, user));
     }
 
     //actual value we will be using for user

@@ -1,4 +1,6 @@
-import {createContext,  useEffect,  useReducer} from 'react';
+import {createContext, useReducer} from 'react';
+
+import { createAction } from '../utils/reducer/reducer.util';
 
 //create new array with products 
 const addCartItem = (cartItems, productToAdd) => {
@@ -103,6 +105,7 @@ export const CartProvider = ({children}) => {
     const [ {cartItems, cartCount, cartTotal, isCartOpen} , dispatch ] = useReducer(cartReducer, INITIAL_CART_VALUE);
 
     //update cartItems, cartcount and cartTotal
+    //when one update need to modify multiple values 
     const updateCartItemsReducer = (newCartItems) => {
 
         const newCartCount = newCartItems.reduce(
@@ -115,7 +118,7 @@ export const CartProvider = ({children}) => {
             0
         );
 
-        dispatch({ type: CART_ACTION_TYPES.SET_CART_ITEMS, payload: {cartItems: newCartItems, cartTotal: newCartTotal, cartCount: newCartCount} })
+        dispatch(createAction(CART_ACTION_TYPES.SET_CART_ITEMS, {cartItems: newCartItems, cartTotal: newCartTotal, cartCount: newCartCount} ));
         /*
         dispatch new action with payload = {
             newCartItems,
@@ -126,7 +129,7 @@ export const CartProvider = ({children}) => {
     }
     //update cart items 
     const setIsCartOpen = (isCartOpen) => {
-        dispatch({type: CART_ACTION_TYPES.SET_CART_OPEN, payload: isCartOpen});
+        dispatch(createAction(CART_ACTION_TYPES.SET_CART_OPEN, isCartOpen));
      }
  
     //add item to cart or add  quantity to item
