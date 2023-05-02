@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom'; //add react-router-dom to handle navigation 
+import { Provider } from 'react-redux';
 
 
 import App from './App';
@@ -9,6 +10,7 @@ import App from './App';
 import { UserProvider } from './context/user.context';
 import { CategoriesProvider } from './context/categories.context';
 import { CartProvider } from './context/cart.context';
+import { store } from './store/store';
 
 import './index.scss';
 
@@ -16,17 +18,19 @@ import './index.scss';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-  <BrowserRouter>
-  {/* which user has access to our components  */}
-  <UserProvider> 
-    <CategoriesProvider>  
-      <CartProvider>
-        
-        <App />
-      </CartProvider>
-    </CategoriesProvider>
-    </UserProvider> 
-  </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+      {/* which user has access to our components  */}
+        <UserProvider> 
+          <CategoriesProvider>  
+            <CartProvider>
+              
+              <App />
+            </CartProvider>
+          </CategoriesProvider>
+        </UserProvider> 
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
 

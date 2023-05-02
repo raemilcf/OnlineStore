@@ -71,3 +71,22 @@ export const UserProvider = ({ children }) => {
 
 
 //redurcer scale well with complex context 
+
+//context vs reducers 
+//difference in accesibility 
+//wrap categories provider in shop components becasuse is only used in shop
+//try to put it in cart drop down 
+//we can isolate the context and provider 
+
+//redux store is global 
+//always has access to all the components 
+//data flow 
+//1. contex A -> component and then acction
+
+//with redux 
+//3 component 3 reducers 
+//singular store , singular dispatch --> root reducer 
+
+
+//dont use context and redux at same time or combine 
+//all state should be save in one place 
