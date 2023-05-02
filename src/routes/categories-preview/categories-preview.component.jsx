@@ -1,13 +1,12 @@
-import {  useContext } from "react";
-
-import { CategoriesContext } from "../../context/categories.context";
+import { useSelector } from "react-redux";
 
 import CategoryPreview from "../../components/category-preview/category-preview.component";
+import { selectCategoriesMap } from "../../store/categories/categories.selector";
 
 const CategoriesPreview = () => {
 
     //must call same variable names from productsContext
-    const { categoriesMap } = useContext(CategoriesContext);
+    const categoriesMap = useSelector(selectCategoriesMap);
    
     // only shows the first 4 elements of a category
     return (//declare a fragment <> </>

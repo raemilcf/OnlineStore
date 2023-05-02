@@ -13,6 +13,7 @@ import { createUserDocumentFromAuth, onAuthStateChangedListener } from './utils/
 
 
 
+
 //props driling - send user data to all components 
 //react context - save data to avoid passing data to all components and parents and child components 
 
@@ -34,6 +35,10 @@ const App  = ()=> {
        });
        return unsubscribe;
   } ,[] ); //generate one dispatch for us and never change, we can add it as callback with no problem 
+
+
+ 
+
 
   return( //create all the routing pages existing and access 
     <Routes>

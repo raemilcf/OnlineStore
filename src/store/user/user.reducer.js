@@ -7,7 +7,10 @@ const INITIAL_STATE = {
 
 //since userReducer is going to be call with every change in action we have to return by default state
 //indicating that nothing has change if it isn't the reducer you want to hit
-export const userReducer = (state = INITIAL_STATE, action = {}) => {
+export const userReducer = (
+    state = INITIAL_STATE, 
+    action = {}
+    ) => {
     //state holds the current user
     const { type, payload } = action;
    
