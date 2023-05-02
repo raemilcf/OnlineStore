@@ -34,3 +34,28 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+
+
+
+//reducers -> redux - object representation of the values, the only thing it does is a representation of context
+//instead of useState and useEffect --> action 
+
+// type :string 
+// payload : anything 
+
+//Action  {type : "Toggle_cart_open", payload : anything}
+//
+
+//reducers are a funciton that return back an object 
+
+
+//reducers a fnction that return  an object 
+
+
+// const userReducer = (state, action) => {
+//   //base on the state and action we will determine what object to return 
+//   return {
+//     currentUser :  //current state
+//   }
+// }

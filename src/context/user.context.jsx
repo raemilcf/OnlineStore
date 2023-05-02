@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from  'react';
+import { createContext,  useEffect, useReducer  } from  'react';
 import { createUserDocumentFromAuth, onAuthStateChangedListener } from '../utils/firebase/firebase.utils';
 
 //actual value you want to access 
@@ -8,11 +8,42 @@ export const UserContext = createContext({
     setCurrentUser: () => null,
 });
 
+
+export const USER_ACTION_TYPES = {
+    SET_CURRENT_USER : 'SET_CURRENT_USER' 
+}
+
+const userReducer = (state, action) => {
+    //state holds the current user
+    const { type, payload } = action;
+   
+    switch(type){
+        case USER_ACTION_TYPES.SET_CURRENT_USER:   
+            return {
+                ...state, //give me all the vallues 
+                currentUser : payload // add this new value or overwrite the others values I wnat
+            }
+        default:
+            throw new Error(`Unhandled type ${type} in userReducer`);
+    }
+}
+
+const INITIAL_STATE = {
+    currentUser : null
+}
+
 //actual return and use of users 
 //user provider allow children to access and modify current user
 export const UserProvider = ({ children }) => {
-    //use our state modifier for user 
-    const [currentUser, setCurrentUser] = useState(null);
+    //USE OF REDUCERS TO UPDATE STATE
+    const [ {currentUser}, dispatch ] = useReducer(userReducer, INITIAL_STATE);
+
+    //update current user 
+    const setCurrentUser = (user) => {
+        //every time dispatched runs if object changes it re-renders the funcitonal component and update all the pages that are listening 
+        dispatch({type: USER_ACTION_TYPES.SET_CURRENT_USER, payload: user})
+    }
+
     //actual value we will be using for user
     const value = { currentUser, setCurrentUser};
 
@@ -37,3 +68,4 @@ export const UserProvider = ({ children }) => {
 }
 
 
+//redurcer scale well with complex context 
