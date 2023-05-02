@@ -1,12 +1,11 @@
 //redux state
-
-import {compose, configureStore, applyMiddleware } from 'redux';
+import {compose, createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 
-import { rootReducer } from './root-reducer';
+import { rootReducer }  from './root-reducer';
 
 //before an action hits the reducer it hits the reducer firts 
-const middleWares = [logger];
+const middleWares = [process.env.NODE_ENV === 'development' && logger].filter(Boolean);
 
 //spread in the apply middleware 
 //compose - pas multiple functions 
@@ -14,4 +13,4 @@ const middleWares = [logger];
 const composedEnhancers = compose(applyMiddleware(...middleWares));
 
 //root -reducer
-export const store = configureStore({reducer : rootReducer, undefined, composedEnhancers});
+export const store = createStore({ reducer: rootReducer, undefined, composedEnhancers});

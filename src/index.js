@@ -4,10 +4,8 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom'; //add react-router-dom to handle navigation 
 import { Provider } from 'react-redux';
 
-
 import App from './App';
 
-import { UserProvider } from './context/user.context';
 import { CategoriesProvider } from './context/categories.context';
 import { CartProvider } from './context/cart.context';
 import { store } from './store/store';
@@ -21,14 +19,12 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
       {/* which user has access to our components  */}
-        <UserProvider> 
           <CategoriesProvider>  
             <CartProvider>
               
               <App />
             </CartProvider>
           </CategoriesProvider>
-        </UserProvider> 
       </BrowserRouter>
     </Provider>
   </React.StrictMode>
