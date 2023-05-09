@@ -1,6 +1,6 @@
 //redux state
 import {compose,createStore, applyMiddleware } from 'redux';
-import logger from 'redux-logger';
+// import logger from 'redux-logger';
 
 import { rootReducer }  from './root-reducer';
 import { persistStore, persistReducer } from 'redux-persist';
@@ -25,7 +25,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 //use redux dev tools, ONLY RUN ON DEV AND IF IT HAS CHROME EXTENSION REDUX DEV TOOLS
-const composeEnhancers = (process.env.NODE_ENV=='development' && window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+const composeEnhancers = (process.env.NODE_ENV === 'development' && window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
 //spread in the apply middleware 
 //compose - pas multiple functions 
