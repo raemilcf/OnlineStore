@@ -1,21 +1,24 @@
-import { Fragment, useContext } from "react";
+import { Fragment } from "react";
 import { Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
 
-import { UserContext } from "../../context/user.context";
 import { singOutUser } from '../../utils/firebase/firebase.utils'
-import { CartContext } from "../../context/cart.context";
+import { selectCurrentUser } from "../../store/user/user.selector";
+import { selectIsCartOpen } from "../../store/cart/cart.selector";
 
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
-
 import { NavigationContainer, NavLinks, NavLink, LogoContainer } from "./navigation.styles";
+
+
 //fragment render to nothing, dont want to render some element - avoid adding another div 
 const Navigation = () => {
-    //re-render to show user changes on login
-    const { currentUser } = useContext(UserContext);
-    const { isCartOpen } = useContext(CartContext);
+
+    //allows to take a specific part of redux and get the values 
+    const currentUser = useSelector(selectCurrentUser);
+    const  isCartOpen  = useSelector(selectIsCartOpen);
 
  
     return (
