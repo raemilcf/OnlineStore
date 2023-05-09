@@ -8,17 +8,18 @@ import {CategoryContainer, Title} from './category.styles'
 
 
 const Category = () => {
+    console.log('render/re-rendering category component');
 
     //get the value to use on url (userParams hooks allows to get some values )
     const {category} = useParams();
-
     const categoriesMap = useSelector(selectCategoriesMap);
-
     //get actual product from categoriesMap
     const [products, setProducts] = useState(categoriesMap[category]);
 
+
     //only change list of products showing if category or categoriesMap changes 
     useEffect(() => {
+        console.log('effect fired calling set products'); //do not re-render a empty object 
         setProducts(categoriesMap[category]);
 
     }, [category, categoriesMap]);

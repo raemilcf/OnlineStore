@@ -4,8 +4,25 @@ import logger from 'redux-logger';
 
 import { rootReducer }  from './root-reducer';
 
-//before an action hits the reducer it hits the reducer firts 
-const middleWares = [process.env.NODE_ENV === 'development' && logger].filter(Boolean);
+
+//reusable middleware 
+//secuence of curry functions 
+const loggerMiddleware = (store) => (next) => (action)=> {
+     if(!action.type){
+          return next();
+     }
+
+     console.log('type', action.type);
+     console.log('payload', action.payload);
+     console.log('currentState', store.getState());
+
+     next(action);// sync action
+     console.log('next state', store.getState());
+} 
+//before an action hits the reducer it hits the reducer first 
+const middleWares = [loggerMiddleware];
+
+
 
 //spread in the apply middleware 
 //compose - pas multiple functions 
