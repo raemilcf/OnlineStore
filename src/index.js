@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom'; //add react-router-dom to handle navigation 
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+
 
 import App from './App';
 
-import { CartProvider } from './context/cart.context';
-import { store } from './store/store';
+import { store , persistor} from './store/store';
 
 import './index.scss';
 
@@ -16,9 +17,12 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>   
-        <App /> 
-      </BrowserRouter>
+      <PersistGate loading={null} persistor={persistor}> 
+      {/* loading = null renders nothing until persistor is done */}
+        <BrowserRouter>   
+          <App /> 
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );
