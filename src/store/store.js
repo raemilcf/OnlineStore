@@ -44,3 +44,6 @@ export const persistor = persistStore(store);
 
 //redux persist helps to save data in the browser even if you refesh your page 
 
+
+//redux thunk-> actions that dispatch o fires from redux thunk (aka in the middleware)
+//action driven flow 
