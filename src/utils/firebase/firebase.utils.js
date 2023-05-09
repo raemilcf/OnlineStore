@@ -91,16 +91,9 @@ export const getCategoriesAndDocuments = async () => {
     const querySnapshot = await getDocs(queryRequest);
 
     //convert to object that follows the structure of Shop-data.js
-    const categoryMap = querySnapshot.docs.reduce( (accumulator, docSnapshot) => {
-        const { title, items } = docSnapshot.data();
-
-        //insert all list of items per category
-        accumulator[title.toLowerCase()]=items;
-        return accumulator;
-
-    }, {});
-
-    return categoryMap;
+    return querySnapshot.docs.map(docSnapshot => docSnapshot.data());
+    
+   
 }
 
 //validate if user exist and if not create in DB or return existing user
