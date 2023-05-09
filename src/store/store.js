@@ -11,13 +11,11 @@ const loggerMiddleware = (store) => (next) => (action)=> {
      if(!action.type){
           return next();
      }
-
-     console.log('type', action.type);
-     console.log('payload', action.payload);
-     console.log('currentState', store.getState());
-
+     // console.log('type', action.type);
+     // console.log('payload', action.payload);
+     // console.log('currentState', store.getState());
      next(action);// sync action
-     console.log('next state', store.getState());
+     //console.log('next state', store.getState());
 } 
 //before an action hits the reducer it hits the reducer first 
 const middleWares = [loggerMiddleware];

@@ -1,4 +1,4 @@
-import { Fragment, useContext } from "react";
+import { Fragment } from "react";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -7,8 +7,7 @@ import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component
 
 import { singOutUser } from '../../utils/firebase/firebase.utils'
 import { selectCurrentUser } from "../../store/user/user.selector";
-
-import { CartContext } from "../../context/cart.context";
+import { selectIsCartOpen } from "../../store/cart/cart.selector";
 
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
 import { NavigationContainer, NavLinks, NavLink, LogoContainer } from "./navigation.styles";
@@ -19,7 +18,7 @@ const Navigation = () => {
 
     //allows to take a specific part of redux and get the values 
     const currentUser = useSelector(selectCurrentUser);
-    const { isCartOpen } = useContext(CartContext);
+    const  isCartOpen  = useSelector(selectIsCartOpen);
 
  
     return (

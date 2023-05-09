@@ -16,12 +16,8 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-      {/* which user has access to our components  */}
-            <CartProvider>
-              
-              <App />
-            </CartProvider>
+      <BrowserRouter>   
+        <App /> 
       </BrowserRouter>
     </Provider>
   </React.StrictMode>
