@@ -1,7 +1,7 @@
 import { CATEGORIES_ACTION_TYPES } from "./categories.types";
 
 import { createAction } from "../../utils/reducer/reducer.util";
-import { getCategoriesAndDocuments } from '../../utils/firebase/firebase.utils';
+// import { getCategoriesAndDocuments } from '../../utils/firebase/firebase.utils';
 
 //action driven architecture
 //sync calls
@@ -20,20 +20,20 @@ export const fetchCategoriesFailed = (error) =>
     createAction( CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILED, error );
 
 
-//by convention at the end is called async
-//this is our thunk
-export const fetchCategoriesStartAsync = () => {
-    //start request 
-   return async (dispatch) => {
-    dispatch(fetchCategoriesStart());
+// //by convention at the end is called async
+// //this is our thunk
+// export const fetchCategoriesStartAsync = () => {
+//     //start request 
+//    return async (dispatch) => {
+//     dispatch(fetchCategoriesStart());
 
-    try{
-        const categories = await getCategoriesAndDocuments('categories');
-        console.log("categories", categories);
-        //send the result to update states 
-        dispatch(fetchCategoriesSucces(categories));
-    }catch (error){
-        dispatch(fetchCategoriesFailed(error));
-    }
-   };
-};
+//     try{
+//         const categories = await getCategoriesAndDocuments('categories');
+//         console.log("categories", categories);
+//         //send the result to update states 
+//         dispatch(fetchCategoriesSucces(categories));
+//     }catch (error){
+//         dispatch(fetchCategoriesFailed(error));
+//     }
+//    };
+// };

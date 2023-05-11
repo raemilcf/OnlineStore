@@ -1,7 +1,12 @@
 import {all, call } from 'redux-saga/effects';
+import { categoriesSaga } from './categories/categories.saga';
 
 //generator function
-export function* rootSaga() {}
+export function* rootSaga() {
+
+    //execute our request of getting categories from firestore
+    yield all([call(categoriesSaga)]);
+}
 
 //similar to async await 
 
@@ -18,7 +23,10 @@ const objG = gen.next();
 if console log objG will print out the result 
 
 yield-> resolve async request 
-yield -> stash multiple execution, 
+yield -> stash multiple execution, and handle execution 
 
  */
+
+
+//MOST USE WHEN YOU NEED TO HANDLE MULTIPLE ASYNC EVENTS  
 
