@@ -6,19 +6,19 @@ import { getCategoriesAndDocuments } from '../../utils/firebase/firebase.utils';
 //action driven architecture
 //sync calls
 //starting to fetch categories 
-export const fetchCategoriesStart = () => {
+export const fetchCategoriesStart = () => 
     createAction( CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START );
-}
+
 
 //report suscces with data 
-export const fetchCategoriesSucces = (categoriesArray) => {
+export const fetchCategoriesSucces = (categoriesArray) => 
     createAction( CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS, categoriesArray );
-}
+
 
 //report error with correponding error 
-export const fetchCategoriesFailed = (error) => {
+export const fetchCategoriesFailed = (error) => 
     createAction( CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILED, error );
-}
+
 
 //by convention at the end is called async
 //this is our thunk

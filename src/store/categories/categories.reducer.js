@@ -16,7 +16,6 @@ export const categoriesReducer = (
         switch(type){
             //begining api request 
             case CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START:
-                console.log('estado', ...state);
                 return { ...state, isLoading: true};
             //got result of our request 
             case  CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS:

@@ -13,7 +13,7 @@ import  storage  from 'redux-persist/lib/storage'
 
 //before an action hits the reducer it hits the reducer first 
 //only run middleware when we are running in development
-const middleWares = [process.env.NODE_ENV === 'development' &&  logger, thunk, ].filter(Boolean);
+const middleWares = [process.env.NODE_ENV === 'development' &&  logger, thunk ].filter(Boolean);
 
 
 //create persist to save data locally, so we can keep the current state of the browser on refresh
