@@ -20,7 +20,7 @@ const middleWares = [process.env.NODE_ENV === 'development' &&  logger, thunk ].
 const persistConfig = {
      key: 'root',
      storage,
-     blacklist : ['user'] //already comes from firestore
+     whitelist : ['cart'] //already comes from firestore, only show the cart if 
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
