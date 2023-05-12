@@ -25,7 +25,7 @@ const App  = ()=> {
     //allow to keep track of the auth state change listener 
     useEffect( () => { //only run to initialize our litener 
 
-      getCurrentUser().then(user => console.log(user));
+      getCurrentUser();
 
       // const unsubscribe = onAuthStateChangedListener((user) => {
       //     //if logged in with google sso account create user from document 

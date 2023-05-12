@@ -2,7 +2,10 @@
 import  USER_ACTION_TYPES  from "./user.types";
 
 const INITIAL_STATE = {
-    currentUser : null
+    currentUser : null,
+    isLoading : false, 
+    error : null,
+
 }
 
 //since userReducer is going to be call with every change in action we have to return by default state
@@ -15,11 +18,13 @@ export const userReducer = (
     const { type, payload } = action;
    
     switch(type){
-        case USER_ACTION_TYPES.SET_CURRENT_USER:   
+        case USER_ACTION_TYPES.SIGN_IN_SUCCESS:   
             return {
                 ...state, //give me all the vallues 
                 currentUser : payload // add this new value or overwrite the others values I wnat
             }
+        case USER_ACTION_TYPES.SIGN_IN_FAILED:
+            return { ...state, error: payload };
         default: 
             return state;
     }
