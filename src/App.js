@@ -8,8 +8,7 @@ import Shop from './routes/shop/shop.component';
 import Authentication from './routes/authentication/authentication.component';
 import Checkout from './routes/checkout/checkout.component';
 
-import { setCurrentUser } from './store/user/user.action';
-import { createUserDocumentFromAuth, onAuthStateChangedListener } from './utils/firebase/firebase.utils';
+import { getCurrentUser } from './utils/firebase/firebase.utils';
 
 
 
@@ -25,15 +24,18 @@ const App  = ()=> {
    //run when the component mount
     //allow to keep track of the auth state change listener 
     useEffect( () => { //only run to initialize our litener 
-      const unsubscribe = onAuthStateChangedListener((user) => {
-          //if logged in with google sso account create user from document 
-          if(user){
-              createUserDocumentFromAuth(user);
-          }
-          //update hook with user 
-          dispatch(setCurrentUser(user));
-       });
-       return unsubscribe;
+
+      getCurrentUser().then(user => console.log(user));
+
+      // const unsubscribe = onAuthStateChangedListener((user) => {
+      //     //if logged in with google sso account create user from document 
+      //     if(user){
+      //         createUserDocumentFromAuth(user);
+      //     }
+      //     //update hook with user 
+      //     dispatch(setCurrentUser(user));
+      //  });
+      //  return unsubscribe;
   } ,[] ); //generate one dispatch for us and never change, we can add it as callback with no problem 
 
 
