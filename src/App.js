@@ -8,7 +8,7 @@ import Shop from './routes/shop/shop.component';
 import Authentication from './routes/authentication/authentication.component';
 import Checkout from './routes/checkout/checkout.component';
 
-import { getCurrentUser } from './utils/firebase/firebase.utils';
+import { checkUserSession } from './store/user/user.action';
 
 
 
@@ -25,7 +25,7 @@ const App  = ()=> {
     //allow to keep track of the auth state change listener 
     useEffect( () => { //only run to initialize our litener 
 
-      getCurrentUser();
+      dispatch(checkUserSession());
 
       // const unsubscribe = onAuthStateChangedListener((user) => {
       //     //if logged in with google sso account create user from document 
@@ -37,9 +37,6 @@ const App  = ()=> {
       //  });
       //  return unsubscribe;
   } ,[] ); //generate one dispatch for us and never change, we can add it as callback with no problem 
-
-
- 
 
 
   return( //create all the routing pages existing and access 

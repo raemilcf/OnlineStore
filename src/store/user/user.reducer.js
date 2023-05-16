@@ -21,10 +21,18 @@ export const userReducer = (
         case USER_ACTION_TYPES.SIGN_IN_SUCCESS:   
             return {
                 ...state, //give me all the vallues 
-                currentUser : payload // add this new value or overwrite the others values I wnat
-            }
+                currentUser : payload, // add this new value or overwrite the others values I wnat
+                isLoading : false,
+            };
+        case USER_ACTION_TYPES.SIGN_OUT_SUCCESS:
+            return {
+                ...state,
+                currentUser: null
+            };
+        case USER_ACTION_TYPES.SIGN_OUT_FAILED:
+        case USER_ACTION_TYPES.SIGN_UP_FAILED:
         case USER_ACTION_TYPES.SIGN_IN_FAILED:
-            return { ...state, error: payload };
+            return { ...state, error: payload, isLoading: false };
         default: 
             return state;
     }
