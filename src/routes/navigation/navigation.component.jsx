@@ -1,25 +1,28 @@
 import { Fragment } from "react";
 import { Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
 
-import { singOutUser } from '../../utils/firebase/firebase.utils'
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { selectIsCartOpen } from "../../store/cart/cart.selector";
 
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
 import { NavigationContainer, NavLinks, NavLink, LogoContainer } from "./navigation.styles";
+import { signOutStart } from "../../store/user/user.action";
 
 
 //fragment render to nothing, dont want to render some element - avoid adding another div 
 const Navigation = () => {
 
+    const dispatch = useDispatch();
+
     //allows to take a specific part of redux and get the values 
     const currentUser = useSelector(selectCurrentUser);
     const  isCartOpen  = useSelector(selectIsCartOpen);
 
+    const signOutUser = () => dispatch( signOutStart());
  
     return (
        
@@ -37,7 +40,7 @@ const Navigation = () => {
                     CONTACT
                 </NavLink>
                 {currentUser ? (
-                    <NavLink as='span'  onClick={singOutUser}> Sign Out</NavLink>
+                    <NavLink as='span'  onClick={signOutUser}> Sign Out</NavLink>
                 ) : (
                     <NavLink to='/auth'> 
                         SIGN IN

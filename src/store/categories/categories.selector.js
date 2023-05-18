@@ -34,3 +34,7 @@ export const selectCategoriesMap  = createSelector(
 //between UI components and reducer store just after logger is executed 
 //middleware is excecuted after next is excecuted 
 
+export const selectCategoriesIsLoading = createSelector(
+    [selectCategoryReducer],
+    (categoriesSlice) => categoriesSlice.isLoading
+)
