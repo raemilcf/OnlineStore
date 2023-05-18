@@ -6,8 +6,7 @@ import {Routes , Route} from 'react-router-dom'
 import CategoriesPreview from '../categories-preview/categories-preview.component';
 import Category from '../category/category.component';
 
-import { setCategories } from '../../store/categories/categories.action';
-import { getCategoriesAndDocuments } from '../../utils/firebase/firebase.utils';
+import { fetchCategoriesStart } from '../../store/categories/categories.action';
 
 
 const Shop = () => {
@@ -16,13 +15,9 @@ const Shop = () => {
 
      //load categories useEffect 
   useEffect( () => {
-    const getCategories = async () => {
 
-        const categories = await getCategoriesAndDocuments('categories');
-        dispatch( setCategories(categories) );
-    }
-    getCategories();
-
+        dispatch( fetchCategoriesStart());
+   
   },[]);
 
 
