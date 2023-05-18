@@ -58,3 +58,12 @@ reportWebVitals();
 //     currentUser :  //current state
 //   }
 // }
+
+
+/*
+Redux toolkit - easy to write the boiler plate code 
+quiality of life improvement 
+
+
+
+*/

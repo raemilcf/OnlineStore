@@ -131,7 +131,7 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
 
     //if user data exist 
     //return user doc ref
-    return userDocRef;
+    return userSnapshot;
 
 }
 
@@ -164,3 +164,25 @@ export const singOutUser = async () => await signOut(auth);
 export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
 //always listening, stop listening when component that is using unmount
 //observer pattern
+
+
+
+//get current user with redux- saga 
+export const getCurrentUser = () => {
+
+    return new Promise( (resolve, reject) => {
+        const unsubscribe = onAuthStateChanged(
+            auth,
+            (userAuth) => //gets the user auth result if is authenticated 
+            {
+                //avoid memory leak using unsuscribe , whether it has a userAuth or not
+                unsubscribe();
+                //once the value is return we are going to resolve the request, return a response 
+                resolve(userAuth);
+            },
+            //callback 
+            reject
+        )
+
+    })
+}

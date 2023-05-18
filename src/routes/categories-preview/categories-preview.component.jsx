@@ -1,18 +1,21 @@
 import { useSelector } from "react-redux";
 
 import CategoryPreview from "../../components/category-preview/category-preview.component";
-import { selectCategoriesMap } from "../../store/categories/categories.selector";
+import Spinner from "../../components/spinner/spinner.component";
+import { selectCategoriesIsLoading, selectCategoriesMap } from "../../store/categories/categories.selector";
 
 const CategoriesPreview = () => {
 
     //must call same variable names from productsContext
     const categoriesMap = useSelector(selectCategoriesMap);
+    const isLoading = useSelector(selectCategoriesIsLoading)
    
     // only shows the first 4 elements of a category
     return (//declare a fragment <> </>
         <> 
-            {
-                Object.keys(categoriesMap).map((title) => {
+            { isLoading ? <Spinner/> :
+                (
+                    Object.keys(categoriesMap).map((title) => {
                     const products = categoriesMap[title];
                     return (
                         
@@ -20,6 +23,8 @@ const CategoriesPreview = () => {
                     )
                 }
                 )
+                )
+                
             }
         </> 
          
