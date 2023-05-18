@@ -1,39 +1,19 @@
-import { CATEGORIES_ACTION_TYPES } from "./categories.types";
+import { createSlice } from '@reduxjs/toolkit';
 
-import { createAction } from "../../utils/reducer/reducer.util";
-// import { getCategoriesAndDocuments } from '../../utils/firebase/firebase.utils';
+export const CATEGORIES_INITIAL_STATE = {
+  categories: [],
+};
 
-//action driven architecture
-//sync calls
-//starting to fetch categories 
-export const fetchCategoriesStart = () => 
-    createAction( CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START );
+export const categoriesSlice = createSlice({
+  name: 'categories',
+  initialState: CATEGORIES_INITIAL_STATE,
+  reducers: {
+    setCategories(state, action) {
+      state.categories = action.payload;
+    },
+  },
+});
 
+export const { setCategories } = categoriesSlice.actions;
 
-//report suscces with data 
-export const fetchCategoriesSucces = (categoriesArray) => 
-    createAction( CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS, categoriesArray );
-
-
-//report error with correponding error 
-export const fetchCategoriesFailed = (error) => 
-    createAction( CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILED, error );
-
-
-// //by convention at the end is called async
-// //this is our thunk
-// export const fetchCategoriesStartAsync = () => {
-//     //start request 
-//    return async (dispatch) => {
-//     dispatch(fetchCategoriesStart());
-
-//     try{
-//         const categories = await getCategoriesAndDocuments('categories');
-//         console.log("categories", categories);
-//         //send the result to update states 
-//         dispatch(fetchCategoriesSucces(categories));
-//     }catch (error){
-//         dispatch(fetchCategoriesFailed(error));
-//     }
-//    };
-// };
+export const categoriesReducer = categoriesSlice.reducer;
