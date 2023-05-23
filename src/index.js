@@ -3,15 +3,16 @@ import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import { Elements } from '@stripe/react-stripe-js'
 import { HashRouter} from 'react-router-dom'; //add react-router-dom to handle navigation 
 
-
-
-import App from './App';
-
 import { store , persistor} from './store/store';
+import { stripePromise } from './utils/stripe/stripe.utils';
+
 
 import './index.scss';
+import App from './App';
+
 
 //before inserting the provider we need to identify if is needed after login or before any other provider
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -22,7 +23,10 @@ root.render(
       <PersistGate loading={null} persistor={persistor}> 
       {/* loading = null renders nothing until persistor is done */}
         <HashRouter>   
-          <App /> 
+        {/* any element can only exist once  */}
+          <Elements stripe={stripePromise}>
+            <App /> 
+          </Elements>
         </HashRouter>
       </PersistGate>
     </Provider>
