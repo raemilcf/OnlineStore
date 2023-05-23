@@ -71,3 +71,13 @@ quiality of life improvement
 
 
 */
+
+
+/*
+20. typescript 
+typed language, helps organize the code 
+what is expected to received 
+
+
+
+*/
