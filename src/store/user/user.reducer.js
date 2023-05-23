@@ -1,5 +1,5 @@
 //create reducer indicating the changes that will take place base on type
-import  USER_ACTION_TYPES  from "./user.types";
+import  { USER_ACTION_TYPES }   from "./user.types";
 
 const INITIAL_STATE = {
     currentUser : null,

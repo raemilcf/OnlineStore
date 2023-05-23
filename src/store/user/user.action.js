@@ -1,4 +1,4 @@
-import  USER_ACTION_TYPES  from './user.types'
+import  { USER_ACTION_TYPES } from './user.types'
 //declare all the data modification you pretend to do to the object
 import { createAction } from '../../utils/reducer/reducer.util';
 
