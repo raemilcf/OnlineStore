@@ -43,9 +43,9 @@ const PaymentForm = () => {
         //get the client secret, so when the user intent to actually pay the order stripe accept it 
         console.log(response);
 
-        const { paymentIntent : { client_secret }} = response;
+        const clientSecret = response.paymentIntent.client_secret;
 
-        const paymentResult = await stripe.confirmCardPayment(client_secret, {
+        const paymentResult = await stripe.confirmCardPayment(clientSecret, {
             payment_method:{
                 card: elements.getElement(CardElement),
                 billing_details: {
@@ -53,6 +53,7 @@ const PaymentForm = () => {
                 }
             }
         });
+        setIsProcessingPayment(false);
 
         //stripe payment test details 4242....
         if(paymentResult.error){
@@ -68,11 +69,11 @@ const PaymentForm = () => {
 
     return(
         <PaymentFormContainer>
-            <FormContainer onSubmit={ paymentHandler }>
+            <FormContainer onSubmit={paymentHandler}>
                 <h2>Credit Card Payment: </h2>
                 <CardElement/>
                 <PaymentButton
-                 isLoading= { isProcessingPayment} 
+                 isLoading= {isProcessingPayment} 
                  buttonType={BUTTON_TYPE_CLASSES.inverted}
                  >
                  Pay now</PaymentButton>
