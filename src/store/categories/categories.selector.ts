@@ -1,7 +1,9 @@
 import { createSelector } from 'reselect';
+import { CategoriesState } from './categories.reducer';
+import { CategoryMap } from './categories.types';
 
 //use meoization if the object does not change return same output, do no calculate over an over again 
-const selectCategoryReducer = (state) =>  state.categories
+const selectCategoryReducer = (state) : CategoriesState =>  state.categories;
 
 //input selector and output selector 
 export const selectCategories = createSelector(//memoaize selector 
@@ -14,16 +16,20 @@ export const selectCategories = createSelector(//memoaize selector
 //if selectCategories is different it will be executed 
 export const selectCategoriesMap  = createSelector(
     [selectCategories], //input 
-    (categories) => //output 
+    (categories) : CategoryMap => //output 
    categories
    .reduce( (accumulator, {title, items} ) => {
                //insert all list of items per category
                accumulator[title.toLowerCase()]=items;
                return accumulator;
    
-           }, {})
+           }, {} as CategoryMap)
 );
 
+export const selectCategoriesIsLoading = createSelector(
+    [selectCategoryReducer],
+    (categoriesSlice) => categoriesSlice.isLoading
+)
 
 //redux logger should happen before the selector fires 
 //when any action fires as long as reducer updates it does not matter, which part of the reducer your listenning every component that has a useSelector 
@@ -33,8 +39,3 @@ export const selectCategoriesMap  = createSelector(
 //middleware 
 //between UI components and reducer store just after logger is executed 
 //middleware is excecuted after next is excecuted 
-
-export const selectCategoriesIsLoading = createSelector(
-    [selectCategoryReducer],
-    (categoriesSlice) => categoriesSlice.isLoading
-)
