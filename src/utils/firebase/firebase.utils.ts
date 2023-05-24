@@ -11,7 +11,9 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
-    onAuthStateChanged
+    onAuthStateChanged,
+    User,
+    NextOrObserver
 } from "firebase/auth";
 
 //firestore
@@ -23,8 +25,10 @@ import {
     collection,
     writeBatch,
     query,
-    getDocs
+    getDocs,
+    QueryDocumentSnapshot
 } from "firebase/firestore";
+import { Category } from "../../store/categories/categories.types";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -60,8 +64,13 @@ export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googlePro
 //firestore instance 
 export const db = getFirestore();
 
+export type ObjectToAdd = {
+    title: string;
+
+}
+
 //add collection and documents to firestore
-export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+export const addCollectionAndDocuments = async <T extends ObjectToAdd>(collectionKey : string , objectsToAdd : T[] ) : Promise<void> => {
 
     //get the collection (table ) to work with 
     const collectionRef = collection(db, collectionKey);
@@ -81,7 +90,7 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => 
 }
 
 //get categories map - list of categories 
-export const getCategoriesAndDocuments = async () => {
+export const getCategoriesAndDocuments = async () : Promise<Category[]> => {
     const collectionRef = collection(db, 'categories');
 
     //generate a query from the collection 
@@ -91,13 +100,26 @@ export const getCategoriesAndDocuments = async () => {
     const querySnapshot = await getDocs(queryRequest);
 
     //convert to object that follows the structure of Shop-data.js
-    return querySnapshot.docs.map(docSnapshot => docSnapshot.data());
-    
-   
+    return querySnapshot.docs.map(
+        docSnapshot => docSnapshot.data() as Category //use parse to indicate we are expecting a category
+    );
+}
+
+export type AdditionalInformation = {
+    displayName ?: string; 
+}
+
+export type UserData = {
+    createdAt: Date;
+    displayName : string;
+    email: string;
 }
 
 //validate if user exist and if not create in DB or return existing user
-export const createUserDocumentFromAuth = async (userAuth, additionalInformation) => {
+export const createUserDocumentFromAuth = async (
+    userAuth : User, 
+    additionalInformation  = {} as AdditionalInformation
+) : Promise< void | QueryDocumentSnapshot<UserData>> => {
 
     if(!userAuth) return;
 
@@ -124,20 +146,20 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
             });
         }
         catch (error) {
-            console.log("Error creating user", error.message);
+            console.log("Error creating user", error);
 
         }
     }
 
     //if user data exist 
     //return user doc ref
-    return userSnapshot;
+    return userSnapshot as QueryDocumentSnapshot<UserData>;
 
 }
 
 
 //create user with email and password comes native from firebase auth
-export const createAuthUserWithEmailAndPassword = async (email, password) => {
+export const createAuthUserWithEmailAndPassword = async (email : string , password: string ) => {
 
     if(!email || !password) return;
 
@@ -148,7 +170,7 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
 }
 
 //login user
-export const signInAuthUserWithEmailAndPassword = async (email, password) => {
+export const signInAuthUserWithEmailAndPassword = async (email: string, password : string ) => {
 
     if(!email || !password) return;
 
@@ -161,14 +183,14 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 export const singOutUser = async () => await signOut(auth);
 
 //observable -allow to keep track of the user state at any moment 
-export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
+export const onAuthStateChangedListener = (callback : NextOrObserver<User>) => onAuthStateChanged(auth, callback);
 //always listening, stop listening when component that is using unmount
 //observer pattern
 
 
 
 //get current user with redux- saga 
-export const getCurrentUser = () => {
+export const getCurrentUser = () : Promise<User | null> => {
 
     return new Promise( (resolve, reject) => {
         const unsubscribe = onAuthStateChanged(
