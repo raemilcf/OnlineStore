@@ -1,9 +1,10 @@
 import { createSelector } from 'reselect';
+import { RootState } from '../store';
 import { CategoriesState } from './categories.reducer';
 import { CategoryMap } from './categories.types';
 
 //use meoization if the object does not change return same output, do no calculate over an over again 
-const selectCategoryReducer = (state) : CategoriesState =>  state.categories;
+const selectCategoryReducer = (state : RootState) : CategoriesState =>  state.categories;
 
 //input selector and output selector 
 export const selectCategories = createSelector(//memoaize selector 

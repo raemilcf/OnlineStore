@@ -1,7 +1,7 @@
 //redux state
-import {compose,createStore, applyMiddleware } from 'redux';
+import {compose,createStore, applyMiddleware, Middleware } from 'redux';
 import logger from 'redux-logger';
-import { persistStore, persistReducer } from 'redux-persist';
+import { persistStore, persistReducer, PersistConfig } from 'redux-persist';
 import  storage  from 'redux-persist/lib/storage'
 
 //choose redux thunk or redux saga, but not both
@@ -12,17 +12,32 @@ import { rootSaga } from './root-saga';
 
 import { rootReducer }  from './root-reducer';
 
+export type RootState = ReturnType<typeof rootReducer>;
+
+declare global {
+     interface Window{
+          __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+
+     }
+}
 
 //create saga middleware 
 const sagaMidleware = createSagaMiddleware();
 
 //before an action hits the reducer it hits the reducer first 
 //only run middleware when we are running in development
-const middleWares = [process.env.NODE_ENV === 'development' &&  logger, sagaMidleware ].filter(Boolean);
+const middleWares = [
+     process.env.NODE_ENV === 'development' &&  
+     logger, sagaMidleware 
+].filter((middleware): middleware is Middleware => Boolean(middleware));
 
+type ExtendedPersistConfig = PersistConfig<RootState> & {
+
+     whitelist : (keyof RootState)[]
+}
 
 //create persist to save data locally, so we can keep the current state of the browser on refresh
-const persistConfig = {
+const persistConfig : ExtendedPersistConfig = {
      key: 'root',
      storage,
      whitelist : ['cart'] //already comes from firestore, only saves the checkout cart 
