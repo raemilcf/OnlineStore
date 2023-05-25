@@ -1,5 +1,4 @@
 //create reducer indicating the changes that will take place base on type
-import  { USER_ACTION_TYPES }   from "./user.types";
 import { AnyAction } from "redux";
 import { UserData } from "../../utils/firebase/firebase.utils";
 import { signInFailed, signInSuccess, signOutFailed, signOutSuccess, signUpFailed } from "./user.action";
