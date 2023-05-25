@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {ChangeEvent, FormEvent, useState} from 'react';
 import { useDispatch } from 'react-redux';
 
 import FormInput from '../form-input/form-input.component';
@@ -6,6 +6,7 @@ import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
 
 import { SignInContainer, Title, ButtonContainer  } from  './sign-in-form.styles';
 import { emailSignInStart, googleSignInStart } from '../../store/user/user.action';
+import { AuthError } from 'firebase/auth';
 
 //create default object with values to handle in the form 
 const defaultFormFields = {
@@ -20,7 +21,7 @@ const SignInForm = () => {
     const { email, password } = formFields;
 
     //generized changes 
-    const handleChange = (event) => {
+    const handleChange = (event : ChangeEvent<HTMLInputElement>) => {
         const {name , value} = event.target;
         //annotation to save values of the form 
         setFormFields({...formFields, [name] : value});
@@ -36,7 +37,7 @@ const SignInForm = () => {
     }
 
     //create user in authentication firebase and in firestore db
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event : FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try{
 
@@ -44,7 +45,8 @@ const SignInForm = () => {
             //reset form field 
             resetFields();
         }catch(error){
-            if(error.code === 'auth/wrong-password' || error.code === "auth/user-not-found"){
+           // console.log('user sign in failed', error);
+            if((error as AuthError).code === 'auth/wrong-password' || (error as AuthError).code === "auth/user-not-found"){
                 alert("Email or password invalid!");
             }
         }

@@ -1,4 +1,4 @@
-import { useState} from 'react';
+import { ChangeEvent, FormEvent, useState} from 'react';
 import { useDispatch } from 'react-redux';
 
 import FormInput from '../form-input/form-input.component';
@@ -6,6 +6,7 @@ import Button from '../button/button.component';
 
 import { SignUpContainer, Title } from './sign-up-form.styles'
 import { signUpStart } from '../../store/user/user.action';
+import { AuthError } from 'firebase/auth';
 
 //create default object with values to handle in the form 
 const defaultFormFields = {
@@ -25,7 +26,7 @@ const SignUpForm = () => {
     //all the code is call during the re render process of the context change
 
     //generized changes 
-    const handleChange = (event) => {
+    const handleChange = (event : ChangeEvent<HTMLInputElement>) => {
         const {name , value} = event.target;
         //annotation to save values of the form 
         setFormFields({...formFields, [name] : value});
@@ -37,7 +38,7 @@ const SignUpForm = () => {
     }
 
     //create user in authentication firebase and in firestore db
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event : FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         if(password !== confirmPassword){
@@ -55,7 +56,7 @@ const SignUpForm = () => {
         }catch(error){
 
             //if email already exists return error
-            if(error.code === 'auth/email-already-in-use'){
+            if((error as AuthError ).code === 'auth/email-already-in-use'){
                 alert("Email exist");
             }else {
 
