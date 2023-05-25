@@ -7,11 +7,16 @@ import { selectCategoriesIsLoading, selectCategoriesMap } from '../../store/cate
 
 import {CategoryContainer, Title} from './category.styles'
 
+//only render if the category is insed the url 
+ type CategoryRouteParams = {
+    category : string ; //ex. hats, sneakers , women etc
+ }
+
 
 const Category = () => {
 
     //get the value to use on url (userParams hooks allows to get some values )
-    const {category} = useParams();
+    const {category} = useParams<keyof CategoryRouteParams>() as CategoryRouteParams;
     const categoriesMap = useSelector(selectCategoriesMap);
     const isLoading = useSelector(selectCategoriesIsLoading);
     //get actual product from categoriesMap
