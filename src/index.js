@@ -78,6 +78,41 @@ quiality of life improvement
 typed language, helps organize the code 
 what is expected to received 
 
+GraphQL
+only one request to only a one endpoint 
+query request -> what we are looking for define by objects 
+query request -> blob 
+graphql response will be an object with the objecte sent filled 
+
+graphql replace for redux 
+@apollo/client make request within our components 
+when writting our muttation do a test on graphql playgroud before
+
+apollo client is the provider use for graphql 
+graphql apollo chash by the query not by the items 
+
+Muttations inside of apollo 
+const SET_CATEGORY = g1l`
+ mutation($category: Category!){
+  addCategory(category: $category){
+    id
+    title 
+  }
+ }
+ const [addCategory, { loading, error, data }] = useMutation(SET_CATEGORY); //will handle responses and loading state
+addCategory({variable: {category: CategoryObject}}); //add the values 
+
+redux vs apollo
+apollo to use graphql your front need to know graphql 
+need to know all the querys 
+know how to write graphql 
+scalability of the team
+
+//Preformance optimazation in react 
+//optimize code once bottleneck is detected 
+//optime - expend more time on memory to later expend in other thing 
+create selector memoization is done before so when user is navigating in the page then it does not take more time later 
+
 
 
 */
