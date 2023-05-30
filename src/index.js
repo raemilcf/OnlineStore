@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom/client'; //async import 
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom'; //add react-router-dom to handle navigation 
 import { Provider } from 'react-redux';
@@ -113,6 +113,6 @@ scalability of the team
 //optime - expend more time on memory to later expend in other thing 
 create selector memoization is done before so when user is navigating in the page then it does not take more time later 
 
-
+spliting, dynamic imports, suspense and  lazy 
 
 */
