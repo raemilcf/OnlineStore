@@ -25,7 +25,7 @@ export const Preview = styled.div`
   column-gap: 20px;
 
   @media screen and (max-width: 800px){
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);/* two columns  */
     grid-column-gap: 15px;
     grid-row-gap: 25px;
   }
