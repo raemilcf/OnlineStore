@@ -9,9 +9,9 @@ import { Elements } from '@stripe/react-stripe-js'
 
 import { store , persistor} from './store/store';
 import { stripePromise } from './utils/stripe/stripe.utils';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 
 
-import './index.scss';
 import App from './App';
 
 
@@ -33,6 +33,7 @@ root.render(
   </React.StrictMode>
 );
 
+serviceWorkerRegistration.register();
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
@@ -172,5 +173,7 @@ could be
 1. terminated 
 2. running background to fetch messages that occur in the network 
 service worker acts like a network proxy- checks if it really needs to go an execute that file 
+
+
 
 */

@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 
 import { checkUserSession } from './store/user/user.action';
 import Spinner from './components/spinner/spinner.component';
+import { GlobalStyle } from './global.styles';
 
 
 //const Home = await  import(../) //dynamic import 
@@ -52,6 +53,7 @@ const App  = ()=> {
   return( //create all the routing pages existing and access 
   //we use suspense to wait for our lazy loading component, and meanwhile we show the spinner 
    <Suspense fallback= {<Spinner/>} > 
+   <GlobalStyle/>
     <Routes>
         <Route path='/' element= {<Navigation />}>
           <Route index element={ <Home />} />
