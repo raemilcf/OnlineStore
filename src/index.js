@@ -174,3 +174,10 @@ could be
 service worker acts like a network proxy- checks if it really needs to go an execute that file 
 
 */
+
+
+/*
+Webpack and Babel 
+Webpack -> convert files into some files our browser can understand 
+
+*/
