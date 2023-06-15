@@ -181,3 +181,18 @@ Webpack and Babel
 Webpack -> convert files into some files our browser can understand 
 
 */
+
+
+/*
+
+Gastby a framework to build blogs and react apps 
+
+Create React app - client side rendering 
+
+NextJS - server side rendering -robust and large website 
+
+Gatsby - static Site Generator 
+code generator ahead of time- perfect for blogs creation since theres not many dinamically pages that changes
+
+
+*/
