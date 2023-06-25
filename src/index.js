@@ -113,6 +113,8 @@ scalability of the team
 //optime - expend more time on memory to later expend in other thing 
 create selector memoization is done before so when user is navigating in the page then it does not take more time later 
 
+using memo to avoid loading return value of function 
+use useCallback hook to get the function perce and avoid declaring all over againg 
 spliting, dynamic imports, suspense and  lazy 
 
 

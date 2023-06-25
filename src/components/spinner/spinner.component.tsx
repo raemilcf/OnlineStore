@@ -2,7 +2,8 @@ import {SpinnerContainer, SpinnerOverlay } from './spinner.styles'
 
 
 const Spinner = () => (
-    <SpinnerOverlay>
+    // add test id for testing purpose
+    <SpinnerOverlay data-testid='spinner'> 
         <SpinnerContainer />
     </SpinnerOverlay>
 );

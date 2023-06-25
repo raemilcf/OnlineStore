@@ -1,8 +1,8 @@
-import { screen } from '@testing-library/react'
-import { kStringMaxLength } from 'buffer'
-import { getAllJSDocTags } from 'typescript'
+import { fireEvent, screen } from '@testing-library/react'
 import { renderWithProviders } from "../../../utils/test/test.utils"
 import Navigation  from '../navigation.component'
+import * as reactRedux  from 'react-redux';
+import { signOutStart } from '../../../store/user/user.action';
 
 describe('Navigation test', () => {
     test('render a sign in link', () => {
@@ -68,5 +68,30 @@ describe('Navigation test', () => {
         const dropdownTextElement = screen.queryByText(/Your cart is empty/i);
         expect(dropdownTextElement).toBeInTheDocument();
 
-    })
+    });
+
+    test('dispatch signout action ', async() => {
+        const mockDispatch = jest.fn();
+        jest.spyOn(reactRedux, 'useDispatch').mockReturnValue(mockDispatch);
+
+
+        renderWithProviders(<Navigation />, {
+            preloadedState: {
+                user: {
+                    currentUser:{}
+                }
+            }
+        });
+
+        const signOut = screen.getByAltText(/sign out/i);
+        await fireEvent.click(signOut);
+
+        expect(signOut).toBeInTheDocument();
+        expect(mockDispatch).toHaveBeenCalled();
+        expect(mockDispatch).toHaveBeenCalledWith(signOutStart());
+
+        mockDispatch.mockClear();
+
+    });
+
 })
